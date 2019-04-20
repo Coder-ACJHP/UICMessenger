@@ -1,7 +1,7 @@
 # UICMessenger v1.5.0
 Custom chat application, with whatsapp interfaces on iOS built in Swift. No storyboard just edit from the code (if you want). Navigationbar button's action empty so you can handle them by your custom functions under delegate methods (ChatsNavigationBarDelegate & FloatingStartChatButtonDelegate, MessagesNavigationBarDelegate).  
 
-- Multiple included cell types: text, large-emoji, image
+- Multiple included cell types: text, large-emoji, image, audio
 - TableView based you can pre-load and cache something
 
 ### Screenshot: 
@@ -21,7 +21,8 @@ func application(_ application: UIApplication,
 }
 ```
 ## Next update for:
-1- Adding audio message support
+1- <strike>Adding audio message support</strike> Added since 20/04/2019
+2- Share images from camera roll
 
 ## Requirements
 Xcode 9 or later <br>

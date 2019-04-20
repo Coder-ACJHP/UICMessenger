@@ -22,6 +22,7 @@
 		8172EB772267BCB70098C8BC /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8172EB762267BCB70098C8BC /* ChatCell.swift */; };
 		8172EB792267BD4C0098C8BC /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8172EB782267BD4C0098C8BC /* ChatsViewController.swift */; };
 		8172EB7B2267CC1C0098C8BC /* FloatingStartChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8172EB7A2267CC1C0098C8BC /* FloatingStartChatButton.swift */; };
+		81E71D05226B7A05005E7761 /* ChatMessageAudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E71D04226B7A05005E7761 /* ChatMessageAudioCell.swift */; };
 		81F52B7F226B5F8100E822B8 /* AudioRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F52B7E226B5F8100E822B8 /* AudioRecorderManager.swift */; };
 		81FD7C782267A8DF004BE72C /* UICScaledImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD7C772267A8DF004BE72C /* UICScaledImageView.swift */; };
 		81FD7C7B2267BA41004BE72C /* MockDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD7C7A2267BA41004BE72C /* MockDataProvider.swift */; };
@@ -46,6 +47,7 @@
 		8172EB762267BCB70098C8BC /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		8172EB782267BD4C0098C8BC /* ChatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		8172EB7A2267CC1C0098C8BC /* FloatingStartChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingStartChatButton.swift; sourceTree = "<group>"; };
+		81E71D04226B7A05005E7761 /* ChatMessageAudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageAudioCell.swift; sourceTree = "<group>"; };
 		81F52B7E226B5F8100E822B8 /* AudioRecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderManager.swift; sourceTree = "<group>"; };
 		81FD7C772267A8DF004BE72C /* UICScaledImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICScaledImageView.swift; sourceTree = "<group>"; };
 		81FD7C7A2267BA41004BE72C /* MockDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataProvider.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				8172EB722267BC320098C8BC /* HeaderViewLabel.swift */,
 				8172EB762267BCB70098C8BC /* ChatCell.swift */,
 				8172EB742267BC540098C8BC /* ChatMessageCell.swift */,
+				81E71D04226B7A05005E7761 /* ChatMessageAudioCell.swift */,
 				81FD7C772267A8DF004BE72C /* UICScaledImageView.swift */,
 			);
 			path = UIComponents;
@@ -233,6 +236,7 @@
 				589E86D1224E21740043DF41 /* MessagesViewController.swift in Sources */,
 				8172EB732267BC320098C8BC /* HeaderViewLabel.swift in Sources */,
 				81FD7C7B2267BA41004BE72C /* MockDataProvider.swift in Sources */,
+				81E71D05226B7A05005E7761 /* ChatMessageAudioCell.swift in Sources */,
 				81F52B7F226B5F8100E822B8 /* AudioRecorderManager.swift in Sources */,
 				81FD7C782267A8DF004BE72C /* UICScaledImageView.swift in Sources */,
 				58A17467226889DE00EC569E /* ChatsNavigationBar.swift in Sources */,

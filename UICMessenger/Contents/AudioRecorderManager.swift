@@ -24,7 +24,6 @@ class AudioRecorderManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     public var isCanRecord: Bool = false
     private var recordingSession: AVAudioSession!
     private var audioRecorder: AVAudioRecorder!
-    private var audioPlayer:AVAudioPlayer!
     public weak var delegate: AudioRecorderManagerDelegate?
     
     override init() {
@@ -58,10 +57,8 @@ class AudioRecorderManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder.delegate = self
-            audioRecorder.record()
-            
+            if !audioRecorder.isRecording { audioRecorder.record() }
             delegate?.audioRecorder(self, didStartToRecord: true)
-            
         } catch {
             delegate?.audioRecorder(self, didFailToStartToRecord: true)
             stopRecording()
@@ -69,51 +66,16 @@ class AudioRecorderManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     }
     
     func stopRecording() {
-        audioRecorder.stop()
-        audioRecorder = nil
-    }
-    
-    private func preparePlayer() {
-        var error: NSError?
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: getFileURL() as URL)
-        } catch let error1 as NSError {
-            error = error1
-            audioPlayer = nil
+        if audioRecorder.isRecording {
+            audioRecorder.stop()
+            audioRecorder = nil
         }
-        
-        if let err = error {
-            print("AVAudioPlayer error: \(err.localizedDescription)")
-        } else {
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-            audioPlayer.volume = 10.0
-        }
-    }
-    
-    private func deinitializePlayer() {
-        audioPlayer = nil
-    }
-    
-    func playAudio() {
-        preparePlayer()
-        audioPlayer.play()
-    }
-    
-    func stopAudio() {
-        audioPlayer.stop()
-        deinitializePlayer()
-    }
-    
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
     }
     
     func getFileURL() -> URL {
-        let path = getDocumentsDirectory().appendingPathComponent("uicMessengerAudio.m4a")
-        print(path)
-        return path as URL
+        return FileManager.default.urls(for: .documentDirectory,
+                                            in: .userDomainMask)[0]
+                                                .appendingPathComponent("AudioMessage.m4a") as URL
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {

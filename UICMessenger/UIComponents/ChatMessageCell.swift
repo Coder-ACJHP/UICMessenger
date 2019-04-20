@@ -11,39 +11,29 @@ import UIKit
 class ChatMessageCell: UITableViewCell {
     
     private static let edgeInset = UIEdgeInsets(top: 35, left: 35, bottom: 35, right: 35)
-    static let greenBuble = UIImage(named: "greenBubble")?.resizableImage(withCapInsets: edgeInset, resizingMode: .stretch)
-    static let grayBuble = UIImage(named: "grayBubble")?.resizableImage(withCapInsets: edgeInset, resizingMode: .stretch)
+    static let greenBubble = UIImage(named: "greenBubble")?.resizableImage(withCapInsets: edgeInset, resizingMode: .stretch)
+    static let grayBubble = UIImage(named: "grayBubble")?.resizableImage(withCapInsets: edgeInset, resizingMode: .stretch)
     
     private let bubbleImageView: UIImageView = {
-        let bgImageView = UIImageView()
-        return bgImageView
+        return UIImageView()
     }()
     
     private let stackView = UIStackView()
     private let messageLabel = UILabel()
     private let bubleView = UIView()
-    private let playerView = UIView()
     private let messageImgView = UICScaledImageView()
     public var chatMessage: Message! {
         didSet {
             
-            if chatMessage.audioFilePath != nil {
-                
-                playerView.isHidden = false
-                playerViewWidthConstraint.isActive = true
-                playerViewHeightConstraint.isActive = true
-                
-            } else {
-                messageLabel.text = chatMessage.text
-                messageImgView.image = chatMessage.image
-            }
+            messageLabel.text = chatMessage.text
+            messageImgView.image = chatMessage.image
             
             if chatMessage.isIncoming {
-                bubbleImageView.image = ChatMessageCell.grayBuble
+                bubbleImageView.image = ChatMessageCell.grayBubble
                 trailingConstraint.isActive = false
                 leadingConstraint.isActive = true
             } else {
-                bubbleImageView.image = ChatMessageCell.greenBuble
+                bubbleImageView.image = ChatMessageCell.greenBubble
                 leadingConstraint.isActive = false
                 trailingConstraint.isActive = true
             }
@@ -92,11 +82,6 @@ class ChatMessageCell: UITableViewCell {
         messageLabel.textColor = .black
         stackView.addArrangedSubview(messageLabel)
         
-        
-        playerView.backgroundColor = .red
-        playerView.isHidden = true
-        stackView.addArrangedSubview(playerView)
-        
         bubbleImageView.translatesAutoresizingMaskIntoConstraints = false
         bubleView.addSubview(bubbleImageView)
         
@@ -121,11 +106,6 @@ class ChatMessageCell: UITableViewCell {
         leadingConstraint.isActive = false
         trailingConstraint = stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32)
         trailingConstraint.isActive = false
-        
-        playerViewWidthConstraint = playerView.widthAnchor.constraint(equalToConstant: 150)
-        playerViewWidthConstraint.isActive = false
-        playerViewHeightConstraint = playerView.heightAnchor.constraint(equalToConstant: 40)
-        playerViewHeightConstraint.isActive = false
     }
     
     required init?(coder aDecoder: NSCoder) {

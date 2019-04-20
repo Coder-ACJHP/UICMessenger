@@ -15,8 +15,8 @@ protocol FloatingStartChatButtonDelegate: AnyObject {
 class FloatingStartChatButton: UIView {
     
     let startChatButtonSize: CGFloat = 60
-    private static let mainColor = UIColor(red:0.15, green:0.83, blue:0.40, alpha:1.0)
-    private static let tempColor = UIColor(red:0.06, green:0.74, blue:0.32, alpha:1.0)
+    private static let mainColor = UIColor(red:0.35, green:0.73, blue:0.22, alpha:1.0)
+    private static let tempColor = UIColor(red:0.35, green:0.73, blue:0.22, alpha:0.7)
     
     public weak var delegate: FloatingStartChatButtonDelegate?
     

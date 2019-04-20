@@ -17,7 +17,7 @@ struct MockContactListProvider {
     
     public func generateMessages() -> [Message] {
         return
-            [Message(text: "This technique is very easy and requires very little customization. Enjoy.", image: #imageLiteral(resourceName: "background-3"), isIncoming: true, date: Date(), audioFilePath: nil),
+            [
              Message(text: "Little short message", image: nil, isIncoming: true, date: dateFromString(pattern: "13/03/2017"), audioFilePath: nil),
              Message(text: "In today's lesson we look at how to implement a custom cell that provides auto sizing using anchor constraints.", image: nil, isIncoming: false, date: dateFromString(pattern: "13/03/2017"), audioFilePath: nil),
              Message(text: "Provides auto sizing using anchor constraints. This technique is very easy and requires very little customization. Enjoy.", image: nil, isIncoming: false, date: dateFromString(pattern: "13/03/2017"), audioFilePath: nil),
@@ -55,7 +55,7 @@ struct MockContactListProvider {
              Message(text: "In today's lesson we look at how to implement a custom cell that provides auto sizing using anchor constraints.", image: nil,  isIncoming: false, date: dateFromString(pattern: "17/03/2017"), audioFilePath: nil),
              Message(text: "This technique is very easy and requires very little customization. Enjoy.", image: nil, isIncoming: false, date: dateFromString(pattern: "17/04/2017"), audioFilePath: nil),
              Message(text: "Little short message", image: nil,  isIncoming: true, date: dateFromString(pattern: "17/03/2017"), audioFilePath: nil),
-             Message(text: "In today's lesson we look at how to implement a custom cell that provides auto sizing using anchor constraints.", image: nil,  isIncoming: true, date: dateFromString(pattern: "17/03/2017"), audioFilePath: nil)
+             Message(text: "In today's lesson we look at how to implement a custom cell that provides auto sizing using anchor constraints.", image: nil,  isIncoming: true, date: dateFromString(pattern: "17/03/2017"), audioFilePath: URL(string: "https://icons8.com/icons/set/play"))
         ]
     }
     

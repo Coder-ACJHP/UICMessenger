@@ -26,6 +26,17 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         return textfield
     }()
     
+    private lazy var placeholderLabel: UILabel = {
+        let placeholderLabel = UILabel()
+        placeholderLabel.text = "Enter message..."
+        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (inputTextView.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (inputTextView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !inputTextView.text.isEmpty
+        return placeholderLabel
+    }()
+    
     private var isStartedToRecord: Bool = false
     private var audioRecorderManager: AudioRecorderManager?
     
@@ -47,6 +58,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     private var tableView = UITableView(frame: .zero)
     private let messageBubleId = "messageCell"
+    private let messageAudioBubleId = "messageAudioCell"
     public var messageList = [Message]() {
         didSet {
             if messageList.count == 0 {
@@ -78,6 +90,8 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         setupTableView()
         
         addBackGroundImage()
+        
+        configurePlaceHolder()
         
         audioRecorderManager = AudioRecorderManager()
         audioRecorderManager?.delegate = self
@@ -131,6 +145,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         tableView.register(ChatMessageCell.self, forCellReuseIdentifier: messageBubleId)
+        tableView.register(ChatMessageAudioCell.self, forCellReuseIdentifier: messageAudioBubleId)
         self.view.addSubview(tableView)
         
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -138,6 +153,10 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: inputConponentContainerView.topAnchor).isActive = true
 
+    }
+    
+    private func configurePlaceHolder() {
+        inputTextView.addSubview(placeholderLabel)
     }
     
     private func setupInputComponents() {
@@ -236,9 +255,11 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func dateFromString(pattern: String) -> Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        return formatter.date(from: pattern) ?? Date()
+        return dateFormatter.date(from: pattern) ?? Date()
+    }
+    
+    private func getStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
     }
     
     @objc private func handleKeyboardNotification(_ notification: Notification) {
@@ -273,13 +294,9 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func textViewDidChange(_ textView: UITextView) {
         
-        if textView.text.count > 0 {
-            sendButton.setImage(nil, for: .normal)
-            sendButton.setTitle("Send", for: .normal)
-        } else {
-            sendButton.setTitle(nil, for: .normal)
-            sendButton.setImage(MessagesViewController.micIcon, for: .normal)
-        }
+        sendButton.setImage(textView.text.isEmpty ? MessagesViewController.micIcon : nil, for: .normal)
+        sendButton.setTitle(textView.text.isEmpty ? nil:  "Send", for: .normal)
+        placeholderLabel.isHidden = !textView.text.isEmpty
         
         let size = CGSize(width: textView.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
@@ -301,19 +318,13 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc private func handleButtonPress(_ sender: UIButton) {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        let today = formatter.string(from: Date())
-        
+        let today = getStringFromDate(date: Date())
         var lastMessage: Message?
         
         if isStartedToRecord {
             self.isStartedToRecord = false
-            print("Stop recording...")
-            
             audioRecorderManager?.stopRecording()
-            audioRecorderManager?.playAudio()
-            
+            placeholderLabel.text = "Enter message..."
             lastMessage = Message(text: nil,
                                   image: nil,
                                   isIncoming: false,
@@ -321,7 +332,6 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
                                   audioFilePath: audioRecorderManager?.getFileURL())
             
         } else if inputTextView.text?.count ?? 0 > 0 {
-            
             lastMessage = Message(text: inputTextView.text ?? "",
                                   image: nil,
                                   isIncoming: false,
@@ -344,14 +354,14 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc fileprivate func handleButtonDown(_ sender: UIButton) {
+        
         if audioRecorderManager!.isCanRecord
             && !isStartedToRecord
             && sender.image(for: .normal) != nil {
             
             self.isStartedToRecord = true
-            print("Start to record...")
-            
             audioRecorderManager?.startRecording()
+            placeholderLabel.text = "Recording sound..."
         }
     }
     
@@ -377,8 +387,16 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messages[indexPath.section][indexPath.row]
+        
+        if message.audioFilePath != nil {
+            let audioCell = tableView.dequeueReusableCell(withIdentifier: messageAudioBubleId, for: indexPath) as! ChatMessageAudioCell
+            audioCell.chatMessage = message
+            return audioCell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: messageBubleId, for: indexPath) as! ChatMessageCell
-        cell.chatMessage = messages[indexPath.section][indexPath.row]
+        cell.chatMessage = message
         return cell
     }
     

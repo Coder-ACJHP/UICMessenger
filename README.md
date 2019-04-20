@@ -21,8 +21,9 @@ func application(_ application: UIApplication,
 }
 ```
 ## Next update for:
-1- <strike>Adding audio message support</strike> Added since 20/04/2019
-2- Share images from camera roll
+- <strike>Add audio message support</strike> Added since 20/04/2019<br>
+- Share images from camera roll<br>
+- Share video
 
 ## Requirements
 Xcode 9 or later <br>

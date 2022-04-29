@@ -1,5 +1,5 @@
 # UICMessenger 
-Semi pro chat application, with whatsapp interface on iOS, built in Swift. No storyboard you can edit from the code only (if you want). Navigationbar button's action empty so you can handle them by your custom functions under delegate methods (ChatsNavigationBarDelegate & FloatingStartChatButtonDelegate, MessagesNavigationBarDelegate).  
+It's chat application, with whatsapp interface on iOS, built in Swift. No storyboard you can edit from the code only (if you want). Navigationbar button's action empty so you can handle them by your custom functions under delegate methods (ChatsNavigationBarDelegate & FloatingStartChatButtonDelegate, MessagesNavigationBarDelegate).  
 
 - Multiple included cell types: text, emoji, image, audio
 - Easy to integrate with backend service, messages will sort automatically (depended on message date) after fetch.
